@@ -1,0 +1,16 @@
+# sway outputs
+output * background /home/harrisonrodgers/.wallpaper.png tile
+
+# exec at startup
+exec pulseaudio-ctl set 100
+
+# sway libinput
+input * {
+    accel_profile flat
+    tap enabled
+    scroll_method two_finger
+    dwt enabled
+    #natural_scroll enabled
+}
+
+# then get the normal i3 config stuff and put it here

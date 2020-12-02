@@ -1,0 +1,34 @@
+general {
+    colors = true
+    interval = 1
+    color_good = "#859900"
+    color_degraded = "#B58900"
+    color_bad = "#DC322F"
+}
+
+order += "volume master"
+order += "load"
+order += "tztime syd"
+order += "tztime chi"
+
+tztime syd {
+    format = "SYD %Y-%m-%d %r %Z"
+    timezone = "Australia/Sydney"
+}
+
+tztime chi {
+    format = "CHI %Y-%m-%d %r %Z"
+    timezone = "America/Chicago"
+}
+
+load {
+    format = "%1min, %5min, %15min"
+}
+
+volume master {
+       format = "♪: %volume"
+       format_muted = "♪: 0%"
+       device = "default"
+       mixer = "Master"
+       mixer_idx = 0
+}

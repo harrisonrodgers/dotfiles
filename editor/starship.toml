@@ -1,0 +1,14 @@
+[character]
+symbol = "$"
+
+[python]
+symbol = "python "
+
+[conda]
+symbol = "conda "
+
+[username]
+disabled = true
+
+[memory_usage]
+disabled = false
