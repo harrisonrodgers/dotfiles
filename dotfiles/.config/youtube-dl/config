@@ -1,0 +1,12 @@
+-f bestvideo+bestaudio/best
+--merge-output-format mkv
+--output "%(upload_date)s - %(uploader_id)s: %(title)s (%(id)s).%(ext)s"
+--external-downloader aria2c
+--ignore-errors
+--retries 100
+--fragment-retries 100
+--continue
+
+--add-metadata
+--embed-subs
+--embed-thumbnail

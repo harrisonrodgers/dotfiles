@@ -1,0 +1,289 @@
+# Startup
+#exec_always ~/.screenlayout/config.sh 
+exec_always xsetroot -solid "#FDF6E3"
+exec_always --no-startup-id feh --no-fehbg --bg-tile ~/.wallpaper.png
+exec_always xset -dpms
+exec_always xset s noblank
+exec_always xset s off
+
+# set modifier to windows key
+set $mod Mod4
+
+# default border 1080p
+#new_window pixel 2
+#new_float pixel 2
+
+# default border 2160p
+new_window pixel 4
+new_float pixel 4
+
+# font for window titles and default for bar
+font $font
+
+# use mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Fonts
+set $font xft:JetBrains Mono 9
+
+# Mouse move
+set $movemouse "sh -c 'eval `xdotool getactivewindow getwindowgeometry --shell`; xdotool mousemove $((X+WIDTH/2)) $((Y+HEIGHT/2))'"
+
+# Locker
+#set $Locker i3lock -c 000000 # https://github.com/i3/i3lock
+set $Locker physlock # https://github.com/muennich/physlock
+bindsym XF86ScreenSaver exec --no-startup-id $Locker
+
+# Browser
+#set $browser chromium
+#set $browser qutebrowser --enable-webengine-inspector # https://github.com/qutebrowser/qutebrowser
+#set $browser firefox
+#bindsym $mod+Shift+Return exec --no-startup-id $browser; exec $movemouse
+
+# Terminal
+set $terminal alacritty
+#set $terminal kitty --single-instance
+#bindsym $mod+Return exec --no-startup-id $terminal; exec $movemouse
+bindsym XF86Calculator exec --no-startup-id $terminal; exec $movemouse
+
+# Menu
+set $menu "LC_ALL=C.UTF-8 rofi -combi-modi window,run,ssh -font 'JetBrains Mono 16' -show combi -disable-history -hide-scrollbar -color-normal '#fdf6e3,#002b36,#fdf6e3,#eee8d5,#cb4b16' -color-active '#fdf6e3,#268bd2,#fdf6e3,#eee8d5,#268bd2'"
+#bindsym $mod+space exec --no-startup-id $menu
+bindsym XF86Explorer exec --no-startup-id $menu
+
+# alternate mode for variety of quick controls
+bindsym Scroll_Lock mode "$mode_system"
+set $mode_system (l) lock, (e) exit-i3, (s) shutdown, (h) hibernate, (r) reboot, (p) poweroff
+
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Colorscheme #https://ethanschoonover.com/solarized/
+set $base03    #002b36
+set $base02    #073642
+set $base01    #586e75
+set $base00    #657b83
+set $base0     #839496
+set $base1     #93a1a1
+set $base2     #eee8d5
+set $base3     #fdf6e3
+set $yellow    #b58900
+set $orange    #cb4b16
+set $red       #dc322f
+set $magenta   #d33682
+set $violet    #6c71c4
+set $blue      #268bd2
+set $cyan      #2aa198
+set $green     #859900
+
+# Dark Theme
+# <colorclass>          <bdr>   <bkg>   <text>  <idctr> <child_border>
+client.focused          $base01 $blue   $base3  $yellow
+client.unfocused        $base02 $base02 $base0  $yellow
+client.focused_inactive $base02 $base02 $base0  $yellow
+client.urgent           $base02 $red    $base2  $yellow
+
+# Light Theme
+# <colorclass>          <bdr>   <bkg>   <text>  <idctr> <child_border>
+client.focused          $base0  $base1  $base3  $yellow
+client.unfocused        $base1  $base2  $base1  $yellow
+client.focused_inactive $yellow $base2  $yellow $yellow
+client.urgent           $red    $red    $base3  $yellow
+
+# i3 bar
+bar {
+    status_command i3status
+    position top
+    font $font
+    # Dark Theme
+    colors {
+        background $base02
+        statusline $base0
+        separator  $base01
+        # <colorclass>     <bdr>   <bkg>   <text>
+        focused_workspace  $base1  $blue   $base2
+        active_workspace   $base1  $base01 $base2
+        inactive_workspace $base01 $base02 $base1
+        urgent_workspace   $base1  $red    $base2
+    }
+    # Light Theme
+    colors {
+        background $base2
+        statusline $base00
+        separator  $base1
+        # <colorclass>     <bdr>   <bkg>   <text>
+        focused_workspace  $base01 $blue   $base2
+        active_workspace   $base01 $base1  $base2
+        inactive_workspace $base1  $base2  $base1
+        urgent_workspace   $base01 $red    $base2
+    }
+}
+
+# change focus                                    ($mod+[hjkl])
+bindsym $mod+h focus left; exec $movemouse
+bindsym $mod+j focus down; exec $movemouse
+bindsym $mod+k focus up; exec $movemouse
+bindsym $mod+l focus right; exec $movemouse
+
+# move focused window                       ($mod+shift+[hjkl])
+bindsym $mod+Shift+h move left; exec $movemouse
+bindsym $mod+Shift+j move down; exec $movemouse
+bindsym $mod+Shift+k move up; exec $movemouse
+bindsym $mod+Shift+l move right; exec $movemouse
+
+# resize window                           ($mod+control+[hjkl])
+bindsym $mod+Control+h resize shrink width 4 px or 4 ppt; exec $movemouse
+bindsym $mod+Control+j resize grow height 4 px or 4 ppt; exec $movemouse
+bindsym $mod+Control+k resize shrink height 4 px or 4 ppt; exec $movemouse
+bindsym $mod+Control+l resize grow width 4 px or 4 ppt; exec $movemouse
+
+# fine resize window                ($mod+Control+Shift+[hjkl])
+bindsym $mod+Control+Shift+h resize shrink width 1 px or 1 ppt; exec $movemouse
+bindsym $mod+Control+Shift+j resize grow height 1 px or 1 ppt; exec $movemouse
+bindsym $mod+Control+Shift+k resize shrink height 1 px or 1 ppt; exec $movemouse
+bindsym $mod+Control+Shift+l resize grow width 1 px or 1 ppt; exec $movemouse
+
+# split horizontal / vertical
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+# enter fullscreen for focused container
+bindsym $mod+f fullscreen; exec $movemouse
+
+# switch to latest urgent window
+bindsym $mod+x [urgent=latest] focus
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+e layout default; exec $movemouse
+bindsym $mod+s layout stacking; exec $movemouse
+bindsym $mod+w layout tabbed; exec $movemouse
+bindsym $mod+Shift+d layout toggle split; exec $movemouse
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle; exec $movemouse
+
+# change focus between tiling / floating windows
+bindsym $mod+d focus mode_toggle; exec $movemouse
+
+# container focus parent / child
+bindsym $mod+p focus parent; exec $movemouse
+bindsym $mod+c focus child; exec $movemouse
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 in-place (preserves)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs out of X session)
+#bindsym $mod+Shift+e exit # disabled, handled by alternate mode
+
+# kill window
+bindsym $mod+q kill
+
+set $workspace_1 "1: development"
+set $workspace_2 "2: communications"
+set $workspace_3 "3: remote_desktop"
+set $workspace_4 "4"
+set $workspace_5 "5"
+set $workspace_6 "6"
+set $workspace_7 "7"
+set $workspace_8 "8"
+set $workspace_9 "9"
+set $workspace_10 "10"
+
+# lock creation of workspaces to certain monitors/outputs
+#workspace $workspace_1 output DP-4
+#workspace $workspace_2 output DP-4
+#workspace $workspace_3 output DP-4
+#workspace $workspace_4 output DP-4
+#workspace $workspace_5 output DP-4
+#workspace $workspace_6 output DP-4
+#workspace $workspace_7 output DP-4
+#workspace $workspace_8 output DP-4
+#workspace $workspace_9 output DP-4
+#workspace $workspace_10 output DP-4
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace_1; exec $movemouse
+bindsym $mod+2 workspace $workspace_2; exec $movemouse
+bindsym $mod+3 workspace $workspace_3; exec $movemouse
+bindsym $mod+4 workspace $workspace_4; exec $movemouse
+bindsym $mod+5 workspace $workspace_5; exec $movemouse
+bindsym $mod+6 workspace $workspace_6; exec $movemouse
+bindsym $mod+7 workspace $workspace_7; exec $movemouse
+bindsym $mod+8 workspace $workspace_8; exec $movemouse
+bindsym $mod+9 workspace $workspace_9; exec $movemouse
+bindsym $mod+0 workspace $workspace_10; exec $movemouse
+
+# quickly switch between current and previous workspace
+bindsym $mod+Tab workspace back_and_forth; exec $movemouse
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace_1; exec $movemouse
+bindsym $mod+Shift+2 move container to workspace $workspace_2; exec $movemouse
+bindsym $mod+Shift+3 move container to workspace $workspace_3; exec $movemouse
+bindsym $mod+Shift+4 move container to workspace $workspace_4; exec $movemouse
+bindsym $mod+Shift+5 move container to workspace $workspace_5; exec $movemouse
+bindsym $mod+Shift+6 move container to workspace $workspace_6; exec $movemouse
+bindsym $mod+Shift+7 move container to workspace $workspace_7; exec $movemouse
+bindsym $mod+Shift+8 move container to workspace $workspace_8; exec $movemouse
+bindsym $mod+Shift+9 move container to workspace $workspace_9; exec $movemouse
+bindsym $mod+Shift+0 move container to workspace $workspace_10; exec $movemouse
+
+# move workspace to output
+#bindsym $mod+Shift+Control+h move container to output right
+#bindsym $mod+Shift+Control+j move container to output down
+#bindsym $mod+Shift+Control+k move container to output up
+#bindsym $mod+Shift+Control+l move container to output left
+
+# pop-ups & dialogs
+for_window [window_role="^task_dialog$"] floating enable, move position center
+for_window [window_role="^pop-up$"] floating enable, move position center
+for_window [title="^pop-up$"] floating enable, move position center
+for_window [instance="^pop-up$"] floating enable, move position center
+
+# python scratchpad
+bindsym Menu exec --no-startup-id $terminal --class "pop-up" -d 120 30 -e python3
+
+
+# screenshots
+bindsym Print exec "maim -s -u | xclip -selection clipboard -t image/png"
+bindsym Shift+Print exec "maim -u -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+# laptop key bindings (for Apple Macbook with FN defaulting to on)
+#bindsym XF86MonBrightnessDown   exec sudo intelbacklight -dec 4
+#bindsym XF86MonBrightnessUp     exec sudo intelbacklight -inc 4
+#bindsym XF86LaunchA             exec
+#bindsym XF86LaunchB             exec
+#bindsym XF86KbdBrightnessDown   exec sudo keybacklight -dec 4
+#bindsym XF86KbdBrightnessUp     exec sudo keybacklight -inc 4
+#bindsym XF86AudioPrev           exec
+#bindsym XF86AudioPlay           exec
+#bindsym XF86AudioNext           exec
+#bindsym XF86AudioMute           exec pulseaudio-ctl mute
+#bindsym XF86AudioLowerVolume    exec pulseaudio-ctl down 2
+#bindsym XF86AudioRaiseVolume    exec pulseaudio-ctl up 2
+
+# laptop key bindings (for Apple Magic Keyboard where FN does not work and defaults to off)
+#bindsym F1                      exec sudo intelbacklight -dec 4
+#bindsym F2                      exec sudo intelbacklight -inc 4
+#bindsym F3                      exec
+#bindsym F4                      exec
+#bindsym F5                      exec sudo keybacklight -dec 4
+#bindsym F6                      exec sudo keybacklight -inc 4
+#bindsym F7                      exec
+#bindsym F8                      exec
+#bindsym F9                      exec
+#bindsym F10                     exec pulseaudio-ctl mute
+#bindsym F11                     exec pulseaudio-ctl down 2
+#bindsym F12                     exec pulseaudio-ctl up 2

@@ -1,0 +1,46 @@
+{
+    "git.addGBlameToBufferVar": true,
+    "diagnostic.warningSign": ">>",
+    "highlight.colors.enable": true,
+    "highlight.document.enable": true,
+    "json.enable": true,
+    "json.format.enable": true,
+    "python.jediEnabled": false,
+    "suggest.enablePreview": true,
+    "suggest.autoTrigger": "always",
+    "signature.maxWindowHeight": 10,
+    "python.autoComplete.showAdvancedMembers": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=120",
+        "--target-version=py36"
+    ],
+    "coc.preferences.formatOnSaveFiletypes": ["python"],
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyArgs": [
+        "--ignore-missing-imports",
+        "--follow-imports=silent",
+        "--show-column-numbers",
+        "--python-version 3.6",
+        "--cache-dir /tmp/mypy/"
+    ],
+    "python.linting.pep8Enabled": false,
+    "python.linting.pylamaEnabled": true,
+    "python.linting.pylamaArgs": [
+        "--max-line-length=120"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--max-line-length=120",
+        "--disable=W1203,C0330,C0412",
+        "--ignore-patterns=test_*"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=E203,W503,B007"
+    ],
+    "python.linting.pydocstyleEnabled": true
+}

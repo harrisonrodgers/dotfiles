@@ -1,0 +1,58 @@
+prompt_order = [
+    "time",
+    "username",
+    "hostname",
+    "kubernetes",
+    "directory",
+    "git_branch",
+    "git_commit",
+    "git_state",
+    "git_status",
+    "hg_branch",
+    "package",
+    "dotnet",
+    "elixir",
+    "elm",
+    "golang",
+    "haskell",
+    "java",
+    "nodejs",
+    "php",
+    "conda",
+    "python",
+    "ruby",
+    "rust",
+    "terraform",
+    "nix_shell",
+    "memory_usage",
+    "aws",
+    "env_var",
+    "crystal",
+    "cmd_duration",
+    "line_break",
+    "jobs",
+    "battery",
+    "character",
+]
+
+[character]
+symbol = "$"
+
+[conda]
+symbol = "conda "
+
+[memory_usage]
+disabled = false
+
+[time]
+disabled = false
+style = "yellow"
+format = "%H:%M"
+
+[username]
+disabled = true
+show_always = true
+
+[hostname]
+disabled = false
+ssh_only = false

@@ -1,0 +1,7 @@
+[user]
+	name = Harrison Rodgers
+	email = 479570+harrisonrodgers@users.noreply.github.com
+[push]
+	default = simple
+[alias]
+	lg = log --graph --pretty=format:'%C(yellow)%h [%ad]%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(blue)%an %C(reset)' --abbrev-commit --date=short
